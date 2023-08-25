@@ -1,0 +1,35 @@
+receivers:
+  otlp:
+    protocols:
+      grpc: null
+      http: null
+extensions:
+  sigv4auth:
+    service: aps
+    region: ${AWS_REGION}
+exporters:
+  prometheusremotewrite:
+    endpoint: ${AWS_PROMETHEUS_ENDPOINT}
+    auth:
+      authenticator: sigv4auth
+    retry_on_failure:
+      enabled: true
+      initial_interval: 5s
+      max_interval: 10s
+      max_elapsed_time: 30s
+    timeout: 30s
+  logging: null
+service:
+  extensions:
+    - sigv4auth
+  telemetry:
+    logs:
+      level: info
+  pipelines:
+    metrics:
+      receivers:
+        - otlp
+      exporters:
+        - prometheusremotewrite
+        - logging
+

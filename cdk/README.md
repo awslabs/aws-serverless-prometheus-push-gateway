@@ -2,26 +2,12 @@
 
 AWS Serverless Prometheus Push Gateway enables you to push metrics into Prometheus from any source without modifying
 your application or running an always-on service for Prometheus to scrape.
-It includes an AWS CDK construct library that deploys an AWS Lambda function using the Amazon Distribution for
-OpenTelemetry (
-ADOT) extension layer and connects it with an Amazon SQS queue and an Amazon Managed Service for Prometheus (AMP)
+This AWS CDK construct library deploys an AWS Lambda function using the Amazon Distribution for
+OpenTelemetry (ADOT) extension layer and connects it with an Amazon SQS queue and an Amazon Managed Service for
+Prometheus (AMP)
 workspace.
 
 For example, you could create an AWS IoT Core rule to send telemetry data to AMP.
-
-## Build procedure
-
-```
-yarn
-yarn run projen
-yarn run build
-```
-
-## Usage
-
-This construct creates a Lambda that can be invoked with single events or by SQS with batches. [API](/cdk/API.md)
-
-See `example/` for a sample CDK app that implements this construct.
 
 ### Lambda event payload
 
