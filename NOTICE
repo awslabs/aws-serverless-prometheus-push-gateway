@@ -1,1 +1,11 @@
+aws-serverless-prometheus-push-gateway
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+**********************
+THIRD PARTY COMPONENTS
+**********************
+This software includes third party software subject to the following copyrights:
+
+opentelemetry-js under Apache Software License
+loglevel under MIT license
+DefinitelyTyped under MIT license

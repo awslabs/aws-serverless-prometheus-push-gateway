@@ -1,0 +1,728 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrometheusLambdaPushGateway CDK Construct unit tests default simple lambda 1`] = `
+Object {
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": Object {
+    "Prometheus": Object {
+      "Properties": Object {
+        "Alias": "pushGatewayExample",
+      },
+      "Type": "AWS::APS::Workspace",
+    },
+    "PrometheusLambdaPushGatewayServiceRole7AAF493D": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "applies_to": Array [
+                "Resource::arn:<AWS::Partition>:logs:<AWS::Region>:<AWS::AccountId>:log-group:/aws/lambda/*",
+              ],
+              "id": "AwsSolutions-IAM5",
+              "reason": "Lambda function has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Policies": Array [
+          Object {
+            "PolicyDocument": Object {
+              "Statement": Array [
+                Object {
+                  "Action": Array [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": Object {
+                    "Fn::Join": Array [
+                      "",
+                      Array [
+                        "arn:",
+                        Object {
+                          "Ref": "AWS::Partition",
+                        },
+                        ":logs:",
+                        Object {
+                          "Ref": "AWS::Region",
+                        },
+                        ":",
+                        Object {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":log-group:/aws/lambda/*",
+                      ],
+                    ],
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "LambdaFunctionServiceRolePolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "PrometheusLambdaPushGatewayServiceRoleDefaultPolicy30A7B358": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "aps:RemoteWrite",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "Prometheus",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "PrometheusLambdaPushGatewayServiceRoleDefaultPolicy30A7B358",
+        "Roles": Array [
+          Object {
+            "Ref": "PrometheusLambdaPushGatewayServiceRole7AAF493D",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "PrometheusLambdaPushGatewaylambdaF39B876D": Object {
+      "DependsOn": Array [
+        "PrometheusLambdaPushGatewayServiceRoleDefaultPolicy30A7B358",
+        "PrometheusLambdaPushGatewayServiceRole7AAF493D",
+      ],
+      "Properties": Object {
+        "Architectures": Array [
+          "arm64",
+        ],
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "f2a2bedf4290ee0a73b7403c3ce261ad5b43731d650f36db681a7e1a39085c7d.zip",
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_PROMETHEUS_ENDPOINT": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  Object {
+                    "Fn::GetAtt": Array [
+                      "Prometheus",
+                      "PrometheusEndpoint",
+                    ],
+                  },
+                  "api/v1/remote_write",
+                ],
+              ],
+            },
+            "OPENTELEMETRY_COLLECTOR_CONFIG_FILE": "/var/task/otel-config.yaml",
+          },
+        },
+        "Handler": "index.simpleHandler",
+        "Layers": Array [
+          "arn:aws:lambda:us-east-1:901920570463:layer:aws-otel-collector-arm64-ver-0-80-0:1",
+        ],
+        "MemorySize": 192,
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "PrometheusLambdaPushGatewayServiceRole7AAF493D",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`PrometheusLambdaPushGateway CDK Construct unit tests lambda with queue 1`] = `
+Object {
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": Object {
+    "Prometheus": Object {
+      "Properties": Object {
+        "Alias": "pushGatewayExample",
+      },
+      "Type": "AWS::APS::Workspace",
+    },
+    "PrometheusDLQC27971F9": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "KmsMasterKeyId": "alias/aws/sqs",
+      },
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "PrometheusDLQPolicyBFB62B38": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sqs:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": Object {
+                "AWS": "*",
+              },
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "PrometheusDLQC27971F9",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Queues": Array [
+          Object {
+            "Ref": "PrometheusDLQC27971F9",
+          },
+        ],
+      },
+      "Type": "AWS::SQS::QueuePolicy",
+    },
+    "PrometheusLambdaPushGatewayServiceRole7AAF493D": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "applies_to": Array [
+                "Resource::arn:<AWS::Partition>:logs:<AWS::Region>:<AWS::AccountId>:log-group:/aws/lambda/*",
+              ],
+              "id": "AwsSolutions-IAM5",
+              "reason": "Lambda function has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Policies": Array [
+          Object {
+            "PolicyDocument": Object {
+              "Statement": Array [
+                Object {
+                  "Action": Array [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": Object {
+                    "Fn::Join": Array [
+                      "",
+                      Array [
+                        "arn:",
+                        Object {
+                          "Ref": "AWS::Partition",
+                        },
+                        ":logs:",
+                        Object {
+                          "Ref": "AWS::Region",
+                        },
+                        ":",
+                        Object {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":log-group:/aws/lambda/*",
+                      ],
+                    ],
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "LambdaFunctionServiceRolePolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "PrometheusLambdaPushGatewayServiceRoleDefaultPolicy30A7B358": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "aps:RemoteWrite",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "Prometheus",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "sqs:ReceiveMessage",
+                "sqs:ChangeMessageVisibility",
+                "sqs:GetQueueUrl",
+                "sqs:DeleteMessage",
+                "sqs:GetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "PrometheusQueue4514C213",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "PrometheusLambdaPushGatewayServiceRoleDefaultPolicy30A7B358",
+        "Roles": Array [
+          Object {
+            "Ref": "PrometheusLambdaPushGatewayServiceRole7AAF493D",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "PrometheusLambdaPushGatewaylambdaF39B876D": Object {
+      "DependsOn": Array [
+        "PrometheusLambdaPushGatewayServiceRoleDefaultPolicy30A7B358",
+        "PrometheusLambdaPushGatewayServiceRole7AAF493D",
+      ],
+      "Properties": Object {
+        "Architectures": Array [
+          "arm64",
+        ],
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "f2a2bedf4290ee0a73b7403c3ce261ad5b43731d650f36db681a7e1a39085c7d.zip",
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_PROMETHEUS_ENDPOINT": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  Object {
+                    "Fn::GetAtt": Array [
+                      "Prometheus",
+                      "PrometheusEndpoint",
+                    ],
+                  },
+                  "api/v1/remote_write",
+                ],
+              ],
+            },
+            "OPENTELEMETRY_COLLECTOR_CONFIG_FILE": "/var/task/otel-config.yaml",
+          },
+        },
+        "Handler": "index.sqsHandler",
+        "Layers": Array [
+          "arn:aws:lambda:us-east-1:901920570463:layer:aws-otel-collector-arm64-ver-0-80-0:1",
+        ],
+        "MemorySize": 192,
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "PrometheusLambdaPushGatewayServiceRole7AAF493D",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "PrometheusLambdaPushGatewaylambdaSqsEventSourceTestStackPrometheusQueueC38E80E4EFE7368C": Object {
+      "Properties": Object {
+        "BatchSize": 50,
+        "EventSourceArn": Object {
+          "Fn::GetAtt": Array [
+            "PrometheusQueue4514C213",
+            "Arn",
+          ],
+        },
+        "FunctionName": Object {
+          "Ref": "PrometheusLambdaPushGatewaylambdaF39B876D",
+        },
+        "FunctionResponseTypes": Array [
+          "ReportBatchItemFailures",
+        ],
+        "MaximumBatchingWindowInSeconds": 60,
+      },
+      "Type": "AWS::Lambda::EventSourceMapping",
+    },
+    "PrometheusQueue4514C213": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "KmsMasterKeyId": "alias/aws/sqs",
+        "RedrivePolicy": Object {
+          "deadLetterTargetArn": Object {
+            "Fn::GetAtt": Array [
+              "PrometheusDLQC27971F9",
+              "Arn",
+            ],
+          },
+          "maxReceiveCount": 3,
+        },
+      },
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "PrometheusQueuePolicy2A1B1AD3": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sqs:*",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": Object {
+                "AWS": "*",
+              },
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "PrometheusQueue4514C213",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Queues": Array [
+          Object {
+            "Ref": "PrometheusQueue4514C213",
+          },
+        ],
+      },
+      "Type": "AWS::SQS::QueuePolicy",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`PrometheusLambdaPushGateway CDK Construct unit tests lambda with x-ray 1`] = `
+Object {
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": Object {
+    "Prometheus": Object {
+      "Properties": Object {
+        "Alias": "pushGatewayExample",
+      },
+      "Type": "AWS::APS::Workspace",
+    },
+    "PrometheusLambdaPushGatewayServiceRole7AAF493D": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "applies_to": Array [
+                "Resource::arn:<AWS::Partition>:logs:<AWS::Region>:<AWS::AccountId>:log-group:/aws/lambda/*",
+              ],
+              "id": "AwsSolutions-IAM5",
+              "reason": "Lambda function has the required permission to write CloudWatch Logs. It uses custom policy instead of arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole with tighter permissions.",
+            },
+            Object {
+              "applies_to": Array [
+                "Resource::*",
+              ],
+              "id": "AwsSolutions-IAM5",
+              "reason": "The Lambda function needs access to X-Ray, but X-Ray does not allow resource restrictions.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Policies": Array [
+          Object {
+            "PolicyDocument": Object {
+              "Statement": Array [
+                Object {
+                  "Action": Array [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": Object {
+                    "Fn::Join": Array [
+                      "",
+                      Array [
+                        "arn:",
+                        Object {
+                          "Ref": "AWS::Partition",
+                        },
+                        ":logs:",
+                        Object {
+                          "Ref": "AWS::Region",
+                        },
+                        ":",
+                        Object {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":log-group:/aws/lambda/*",
+                      ],
+                    ],
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "LambdaFunctionServiceRolePolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "PrometheusLambdaPushGatewayServiceRoleDefaultPolicy30A7B358": Object {
+      "Metadata": Object {
+        "cdk_nag": Object {
+          "rules_to_suppress": Array [
+            Object {
+              "applies_to": Array [
+                "Resource::*",
+              ],
+              "id": "AwsSolutions-IAM5",
+              "reason": "The Lambda function needs access to X-Ray, but X-Ray does not allow resource restrictions.",
+            },
+          ],
+        },
+      },
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "aps:RemoteWrite",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "Prometheus",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "PrometheusLambdaPushGatewayServiceRoleDefaultPolicy30A7B358",
+        "Roles": Array [
+          Object {
+            "Ref": "PrometheusLambdaPushGatewayServiceRole7AAF493D",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "PrometheusLambdaPushGatewaylambdaF39B876D": Object {
+      "DependsOn": Array [
+        "PrometheusLambdaPushGatewayServiceRoleDefaultPolicy30A7B358",
+        "PrometheusLambdaPushGatewayServiceRole7AAF493D",
+      ],
+      "Properties": Object {
+        "Architectures": Array [
+          "arm64",
+        ],
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "f2a2bedf4290ee0a73b7403c3ce261ad5b43731d650f36db681a7e1a39085c7d.zip",
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_PROMETHEUS_ENDPOINT": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  Object {
+                    "Fn::GetAtt": Array [
+                      "Prometheus",
+                      "PrometheusEndpoint",
+                    ],
+                  },
+                  "api/v1/remote_write",
+                ],
+              ],
+            },
+            "OPENTELEMETRY_COLLECTOR_CONFIG_FILE": "/var/task/otel-config.yaml",
+          },
+        },
+        "Handler": "index.simpleHandler",
+        "Layers": Array [
+          "arn:aws:lambda:us-east-1:901920570463:layer:aws-otel-collector-arm64-ver-0-80-0:1",
+        ],
+        "MemorySize": 192,
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "PrometheusLambdaPushGatewayServiceRole7AAF493D",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+        "TracingConfig": Object {
+          "Mode": "Active",
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
