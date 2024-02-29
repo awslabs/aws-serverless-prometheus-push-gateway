@@ -41,5 +41,9 @@ export class ExampleStack extends cdk.Stack {
     new cdk.CfnOutput(this, "QueueUrl", {
       value: queue.queueUrl,
     });
+
+    new cdk.CfnOutput(this, "PrometheusUrl", {
+      value: prometheus.attrPrometheusEndpoint,
+    });
   }
 }

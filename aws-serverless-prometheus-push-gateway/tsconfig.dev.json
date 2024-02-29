@@ -27,7 +27,6 @@
     "target": "es2020"
   },
   "include": [
-    ".projenrc.js",
     "src/**/*.ts",
     "test/**/*.ts"
   ],

@@ -15,7 +15,7 @@ import { Construct } from "constructs";
 
 // source of truth for the latest version https://aws-otel.github.io/docs/getting-started/lambda/lambda-go#lambda-layer
 const adotLayerVersionArn =
-  "arn:aws:lambda:us-east-1:901920570463:layer:aws-otel-collector-arm64-ver-0-80-0:1";
+  "arn:aws:lambda:us-east-1:901920570463:layer:aws-otel-collector-arm64-ver-0-90-1:1";
 
 /**
  * The properties for PrometheusLambdaPushGateway.
@@ -100,7 +100,7 @@ export class PrometheusLambdaPushGateway extends Construct {
       role: lambdaServiceRole,
       architecture: lambda.Architecture.ARM_64,
       memorySize: 192,
-      runtime: lambda.Runtime.NODEJS_18_X,
+      runtime: lambda.Runtime.NODEJS_20_X,
       code: lambda.Code.fromAsset(path.join(__dirname, "lambda")),
       handler: props.queue ? "index.sqsHandler" : "index.simpleHandler",
       tracing: props.xray ? lambda.Tracing.ACTIVE : lambda.Tracing.DISABLED,

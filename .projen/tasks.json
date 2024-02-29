@@ -5,7 +5,7 @@
       "description": "Full release build for all affected projects",
       "steps": [
         {
-          "exec": "yarn nx run-many --target=build --output-style=stream --nx-bail",
+          "exec": "npx nx run-many --target=build --output-style=stream --nx-bail",
           "receiveArgs": true
         }
       ]
@@ -47,7 +47,7 @@
       "description": "Only compile for all affected projects",
       "steps": [
         {
-          "exec": "yarn nx run-many --target=compile --output-style=stream --nx-bail",
+          "exec": "npx nx run-many --target=compile --output-style=stream --nx-bail",
           "receiveArgs": true
         }
       ]
@@ -78,7 +78,7 @@
       "description": "Runs eslint against the codebase for all affected projects",
       "steps": [
         {
-          "exec": "yarn nx run-many --target=eslint --output-style=stream --nx-bail",
+          "exec": "npx nx run-many --target=eslint --output-style=stream --nx-bail",
           "receiveArgs": true
         }
       ]
@@ -88,7 +88,7 @@
       "description": "Generate dependency graph for monorepo",
       "steps": [
         {
-          "exec": "yarn nx graph",
+          "exec": "npx nx graph",
           "receiveArgs": true
         }
       ]
@@ -116,7 +116,7 @@
       "description": "Creates the distribution package for all affected projects",
       "steps": [
         {
-          "exec": "yarn nx run-many --target=package --output-style=stream --nx-bail",
+          "exec": "npx nx run-many --target=package --output-style=stream --nx-bail",
           "receiveArgs": true
         }
       ]
@@ -126,7 +126,7 @@
       "description": "Runs after successful compilation for all affected projects",
       "steps": [
         {
-          "exec": "yarn nx run-many --target=post-compile --output-style=stream --nx-bail",
+          "exec": "npx nx run-many --target=post-compile --output-style=stream --nx-bail",
           "receiveArgs": true
         }
       ]
@@ -140,7 +140,7 @@
       "description": "Prepare the project for compilation for all affected projects",
       "steps": [
         {
-          "exec": "yarn nx run-many --target=pre-compile --output-style=stream --nx-bail",
+          "exec": "npx nx run-many --target=pre-compile --output-style=stream --nx-bail",
           "receiveArgs": true
         }
       ]
@@ -150,7 +150,7 @@
       "description": "Run task against multiple workspace projects",
       "steps": [
         {
-          "exec": "yarn nx run-many",
+          "exec": "npx nx run-many",
           "receiveArgs": true
         }
       ]
@@ -160,7 +160,7 @@
       "description": "Run tests for all affected projects",
       "steps": [
         {
-          "exec": "yarn nx run-many --target=test --output-style=stream --nx-bail",
+          "exec": "npx nx run-many --target=test --output-style=stream --nx-bail",
           "receiveArgs": true
         }
       ]
@@ -173,28 +173,13 @@
       },
       "steps": [
         {
-          "exec": "yarn upgrade npm-check-updates"
-        },
-        {
-          "exec": "npm-check-updates --dep dev --upgrade --target=minor --reject='nx'"
-        },
-        {
-          "exec": "npm-check-updates --dep optional --upgrade --target=minor --reject='nx'"
-        },
-        {
-          "exec": "npm-check-updates --dep peer --upgrade --target=minor --reject='nx'"
-        },
-        {
-          "exec": "npm-check-updates --dep prod --upgrade --target=minor --reject='nx'"
-        },
-        {
-          "exec": "npm-check-updates --dep bundle --upgrade --target=minor --reject='nx'"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@aws-prototyping-sdk/nx-monorepo,@commitlint/cli,@commitlint/config-conventional,@types/jest,commitizen,cz-conventional-changelog,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,npm-check-updates,prettier,projen,syncpack,ts-node,typescript,aws-cdk-lib,cdk-nag,constructs"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade"
+          "exec": "yarn upgrade @aws-prototyping-sdk/nx-monorepo @commitlint/cli @commitlint/config-conventional @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser commitizen constructs cz-conventional-changelog eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint npm-check-updates nx prettier projen syncpack ts-node typescript aws-cdk-lib cdk-nag"
         },
         {
           "exec": "npx projen"
@@ -208,16 +193,16 @@
       "name": "upgrade-deps",
       "steps": [
         {
-          "exec": "yarn npm-check-updates --deep --rejectVersion 0.0.0 -u --dep prod,dev,peer,optional,bundle --target=minor"
+          "exec": "npx npm-check-updates --deep --rejectVersion 0.0.0 -u --dep prod,dev,peer,optional,bundle --target=minor"
         },
         {
-          "exec": "yarn syncpack fix-mismatches"
+          "exec": "npx syncpack fix-mismatches"
         },
         {
-          "exec": "yarn install"
+          "exec": "npm install"
         },
         {
-          "exec": "yarn projen"
+          "exec": "npx projen"
         }
       ]
     },
@@ -226,14 +211,14 @@
       "description": "Watch & compile in the background for all affected projects",
       "steps": [
         {
-          "exec": "yarn nx run-many --target=watch --output-style=stream --skip-nx-cache --nx-ignore-cycles --nx-bail",
+          "exec": "npx nx run-many --target=watch --output-style=stream --skip-nx-cache --nx-ignore-cycles --nx-bail",
           "receiveArgs": true
         }
       ]
     }
   },
   "env": {
-    "PATH": "$(npx -c \"node -e \\\"console.log(process.env.PATH)\\\"\")"
+    "PATH": "$(npx -c \"node --print process.env.PATH\")"
   },
-  "//": "~~ Generated by projen. To modify, edit .projenrc.js and run \"npx projen\"."
+  "//": "~~ Generated by projen. To modify, edit .projenrc.ts and run \"npx projen\"."
 }

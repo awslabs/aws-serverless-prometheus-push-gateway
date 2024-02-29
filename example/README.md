@@ -8,7 +8,7 @@ function to receive metrics via SQS.
 After running `projen build` in the project root, you can use this app like any other CDK app.
 
 ``` shell
-npx cdk deploy ExampleStack
+npx cdk deploy AWSServerlessPrometheusPushGatewayExample
 ```
 
 ## Load testing
@@ -18,5 +18,5 @@ After deploying, you can run load tests using the scripts in `scripts/`.
 The SQS script will generate and send random samples as fast as possible.
 
 ```shell
-python loadtest/sqstest.py ExampleStack
+python loadtest/sqstest.py AWSServerlessPrometheusPushGatewayExample
 ```
