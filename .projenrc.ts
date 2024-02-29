@@ -94,7 +94,7 @@ const pushGatewayConstruct = new awscdk.AwsCdkConstructLibrary({
   parent: project,
   author: "Jeff Strunk",
   authorAddress: "strunkjd@amazon.com",
-  cdkVersion: "2.88.0",
+  cdkVersion: "2.130.0",
   defaultReleaseBranch: "main",
   name: "cdk-aws-serverless-prometheus-push-gateway",
   license: "Apache-2.0",

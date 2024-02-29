@@ -6,10 +6,8 @@
     "bundle": "npx projen bundle",
     "bundle:index": "npx projen bundle:index",
     "bundle:index:watch": "npx projen bundle:index:watch",
-    "clobber": "npx projen clobber",
     "compile": "npx projen compile",
     "default": "npx projen default",
-    "eject": "npx projen eject",
     "eslint": "npx projen eslint",
     "package": "npx projen package",
     "post-compile": "npx projen post-compile",
@@ -22,19 +20,18 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.4",
-    "@types/node": "^14",
-    "@typescript-eslint/eslint-plugin": "^5",
-    "@typescript-eslint/parser": "^5",
+    "@types/node": "^18",
+    "@typescript-eslint/eslint-plugin": "^6",
+    "@typescript-eslint/parser": "^6",
+    "constructs": "^10.0.0",
     "esbuild": "^0.19.2",
     "eslint": "^8",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-import-resolver-node": "^0.3.9",
     "eslint-import-resolver-typescript": "^3.6.0",
     "eslint-plugin-import": "^2.28.1",
     "eslint-plugin-prettier": "^5.0.0",
     "jest": "^29.6.4",
-    "jest-junit": "^13",
-    "npm-check-updates": "^16",
+    "jest-junit": "^15",
     "prettier": "^3.0.2",
     "projen": "^0.72.23",
     "ts-jest": "^29.1.1",
@@ -94,11 +91,13 @@
         }
       ]
     ],
-    "preset": "ts-jest",
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "tsconfig.dev.json"
-      }
+    "transform": {
+      "^.+\\.[t]sx?$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.dev.json"
+        }
+      ]
     }
   },
   "types": "lib/index.d.ts",

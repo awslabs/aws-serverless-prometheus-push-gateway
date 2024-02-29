@@ -19,7 +19,7 @@ yarn run build
 
 ## Usage
 
-This construct creates a Lambda that can be invoked with single events or by SQS with batches. [API](/cdk/API.md)
+This construct creates a Lambda that can be invoked with single events or by SQS with batches. [API](cdk/API.md)
 
 See `example/` for a sample CDK app that implements this construct.
 

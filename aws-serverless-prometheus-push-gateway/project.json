@@ -5,119 +5,105 @@
     "default": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen default",
-        "cwd": "aws-serverless-prometheus-push-gateway"
-      }
-    },
-    "eject": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "yarn projen eject",
+        "command": "npx projen default",
         "cwd": "aws-serverless-prometheus-push-gateway"
       }
     },
     "pre-compile": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen pre-compile",
+        "command": "npx projen pre-compile",
         "cwd": "aws-serverless-prometheus-push-gateway"
       }
     },
     "compile": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen compile",
+        "command": "npx projen compile",
         "cwd": "aws-serverless-prometheus-push-gateway"
       }
     },
     "post-compile": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen post-compile",
+        "command": "npx projen post-compile",
         "cwd": "aws-serverless-prometheus-push-gateway"
       }
     },
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen test",
+        "command": "npx projen test",
         "cwd": "aws-serverless-prometheus-push-gateway"
       }
     },
     "package": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen package",
+        "command": "npx projen package",
         "cwd": "aws-serverless-prometheus-push-gateway"
       }
     },
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen build",
-        "cwd": "aws-serverless-prometheus-push-gateway"
-      }
-    },
-    "clobber": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "yarn projen clobber",
+        "command": "npx projen build",
         "cwd": "aws-serverless-prometheus-push-gateway"
       }
     },
     "test:watch": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen test:watch",
+        "command": "npx projen test:watch",
         "cwd": "aws-serverless-prometheus-push-gateway"
       }
     },
     "post-upgrade": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen post-upgrade",
+        "command": "npx projen post-upgrade",
         "cwd": "aws-serverless-prometheus-push-gateway"
       }
     },
     "upgrade": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen upgrade",
+        "command": "npx projen upgrade",
         "cwd": "aws-serverless-prometheus-push-gateway"
       }
     },
     "watch": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen watch",
+        "command": "npx projen watch",
         "cwd": "aws-serverless-prometheus-push-gateway"
       }
     },
     "eslint": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen eslint",
+        "command": "npx projen eslint",
         "cwd": "aws-serverless-prometheus-push-gateway"
       }
     },
     "bundle:index": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen bundle:index",
+        "command": "npx projen bundle:index",
         "cwd": "aws-serverless-prometheus-push-gateway"
       }
     },
     "bundle": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen bundle",
+        "command": "npx projen bundle",
         "cwd": "aws-serverless-prometheus-push-gateway"
       }
     },
     "bundle:index:watch": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen bundle:index:watch",
+        "command": "npx projen bundle:index:watch",
         "cwd": "aws-serverless-prometheus-push-gateway"
       }
     }

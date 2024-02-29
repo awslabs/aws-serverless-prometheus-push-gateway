@@ -5,126 +5,112 @@
     "default": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen default",
-        "cwd": "cdk"
-      }
-    },
-    "eject": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "yarn projen eject",
+        "command": "npx projen default",
         "cwd": "cdk"
       }
     },
     "pre-compile": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen pre-compile",
+        "command": "npx projen pre-compile",
         "cwd": "cdk"
       }
     },
     "compile": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen compile",
+        "command": "npx projen compile",
         "cwd": "cdk"
       }
     },
     "post-compile": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen post-compile",
+        "command": "npx projen post-compile",
         "cwd": "cdk"
       }
     },
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen test",
+        "command": "npx projen test",
         "cwd": "cdk"
       }
     },
     "package": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen package",
+        "command": "npx projen package",
         "cwd": "cdk"
       }
     },
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen build",
-        "cwd": "cdk"
-      }
-    },
-    "clobber": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "yarn projen clobber",
+        "command": "npx projen build",
         "cwd": "cdk"
       }
     },
     "test:watch": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen test:watch",
+        "command": "npx projen test:watch",
         "cwd": "cdk"
       }
     },
     "post-upgrade": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen post-upgrade",
+        "command": "npx projen post-upgrade",
         "cwd": "cdk"
       }
     },
     "upgrade": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen upgrade",
+        "command": "npx projen upgrade",
         "cwd": "cdk"
       }
     },
     "watch": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen watch",
+        "command": "npx projen watch",
         "cwd": "cdk"
       }
     },
     "eslint": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen eslint",
+        "command": "npx projen eslint",
         "cwd": "cdk"
       }
     },
     "compat": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen compat",
+        "command": "npx projen compat",
         "cwd": "cdk"
       }
     },
     "package-all": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen package-all",
+        "command": "npx projen package-all",
         "cwd": "cdk"
       }
     },
     "package:js": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen package:js",
+        "command": "npx projen package:js",
         "cwd": "cdk"
       }
     },
     "docgen": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn projen docgen",
+        "command": "npx projen docgen",
         "cwd": "cdk"
       }
     }
