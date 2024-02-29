@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {awscdk} from "projen";
-import {NxMonorepoProject} from "@aws-prototyping-sdk/nx-monorepo";
-import {TypeScriptProject} from "projen/lib/typescript";
+import { NxMonorepoProject } from "@aws-prototyping-sdk/nx-monorepo";
+import { awscdk } from "projen";
+import { TypeScriptProject } from "projen/lib/typescript";
 
 const project = new NxMonorepoProject({
   name: "aws-serverless-prometheus-push-gateway",
@@ -40,7 +40,8 @@ project.addFields({
   },
 });
 
-const awsServerlessPrometheusPushGateway = "aws-serverless-prometheus-push-gateway";
+const awsServerlessPrometheusPushGateway =
+  "aws-serverless-prometheus-push-gateway";
 const pushGateway = new TypeScriptProject({
   parent: project,
   name: awsServerlessPrometheusPushGateway,
